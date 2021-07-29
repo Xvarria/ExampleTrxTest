@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	<!-- Annotation-based configuration -->
+	<context:annotation-config/>
+    
+    <context:component-scan base-package="com.example.trx.non_jpa">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>    
+
+
+	<!-- Enable the configuration of transaction behavior based on annotations -->
+
+	<bean id="dataSourceDerby" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
+		<property name="url" value="jdbc:derby://localhost:1527/exampleTrxDB;create=true"></property>  
+		<property name="logAbandoned" value="true"></property>
+		<property name="removeAbandoned" value="true"></property>
+		<property name="removeAbandonedTimeout" value="60"></property>
+		<property name="maxActive" value="10"></property>
+		<property name="minIdle" value="1"></property>
+		<property name="maxIdle" value="5"></property>
+		<property name="maxWait" value="3000"></property>
+		<property name="validationQuery" value="SELECT 1 FROM sysibm.sysdummy1"></property> 
+		<property name="testOnBorrow" value="true"></property> 
+		<property name="testWhileIdle" value="true"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="60000"></property>
+		<property name="numTestsPerEvictionRun" value="3"></property>
+		<property name="minEvictableIdleTimeMillis" value="60000"></property>
+		<property name="defaultAutoCommit" value="true"></property>
+		<property name="accessToUnderlyingConnectionAllowed" value="true"></property>
+	</bean>
+
+	<bean id="jdbcTemplateDerby" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSourceDerby" />
+		</property>
+	</bean>
+
+	<bean id="namedJdbcTemplateDerby" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSourceDerby" />
+	</bean>	
+
+ 	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- JTA Configuration -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceDerby" />
+	</bean>
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="message"></property>
+    </bean>
+    
+</beans>
