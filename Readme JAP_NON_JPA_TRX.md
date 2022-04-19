@@ -6,6 +6,18 @@
 ## Usage ##
 mvn clean test
 
+start derby:
+on command
+set DERBY_INSTALL=C:\apache-derby-10.11.1.1
+set CLASSPATH=%DERBY_INSTALL%\lib\derby.jar;%DERBY_INSTALL%\lib\derbytools.jar;%DERBY_INSTALL%\lib\derbyoptionaltools.jar;%DERBY_INSTALL%\lib\derbyshared.jar;.
+cd %DERBY_INSTALL%\bin
+java org.apache.derby.tools.sysinfo
+
+Execute SQL file to create structure
+
+run junit test
+
+
 ## NON-JPA Transactional model notes ##
 
 1. Requires the use of @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
