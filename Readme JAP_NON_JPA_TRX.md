@@ -8,18 +8,28 @@ mvn clean test
 
 To start derby:
 
+``` 
 set DERBY_INSTALL=C:\apache-derby-10.11.1.1
+```
+```
 set CLASSPATH=%DERBY_INSTALL%\lib\derby.jar;%DERBY_INSTALL%\lib\derbytools.jar;%DERBY_INSTALL%\lib\derbyoptionaltools.jar;%DERBY_INSTALL%\lib\derbyshared.jar;.
+```
+```
 cd %DERBY_INSTALL%\bin
+```
+```
 startNetworkServer.bat
+```
+```
 java org.apache.derby.tools.sysinfo
+```
 
 To connect derby from eclipse:
 
 Open Database perspective
-> New ... Select Derby 
-Driver: Select DERBY Embedded JDBC Driver > Add Driver definition (icon next dirver drop down)
-> Select DERBY Embedded JDBC Driver version 10.2 > Go to the tab JAR List add derby.jar and derbyclient.jar from the instalation > OK
+> -New ... Select Derby 
+> -Driver: Select DERBY Embedded JDBC Driver > Add Driver definition (icon next dirver drop down)
+> -Select DERBY Embedded JDBC Driver version 10.2 > Go to the tab JAR List add derby.jar and derbyclient.jar from the instalation > OK
 
 Database: exampleTrxDB
 host: localhost
