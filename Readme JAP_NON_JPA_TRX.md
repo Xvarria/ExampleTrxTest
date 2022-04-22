@@ -1,7 +1,7 @@
 ## Pre-requesites##
 - JDK 11.0.9
 - Maven 3.6.3
-- Derby Database. Version 10.11.1.1. https://db.apache.org/derby/releases/release-10.11.1.1.html
+- Derby Database. Version 10.11.1.1. https://db.apache.org/derby/releases/release-10.11.1.1.html unzip and copy folder on C:/
 
 ## Usage ##
 mvn clean test
@@ -27,9 +27,11 @@ java org.apache.derby.tools.sysinfo
 To connect derby from eclipse:
 
 Open Database perspective
-> -New ... Select Derby 
-> -Driver: Select DERBY Embedded JDBC Driver > Add Driver definition (icon next dirver drop down)
-> -Select DERBY Embedded JDBC Driver version 10.2 > Go to the tab JAR List add derby.jar and derbyclient.jar from the instalation > OK
+> New ... Select Derby 
+> 
+> Driver: Select DERBY Embedded JDBC Driver > Add Driver definition (icon next dirver drop down)
+> 
+> Select DERBY Embedded JDBC Driver version 10.2 > Go to the tab JAR List add derby.jar and derbyclient.jar from the instalation > OK
 
 Database: exampleTrxDB
 host: localhost
